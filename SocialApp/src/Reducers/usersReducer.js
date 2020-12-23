@@ -1,17 +1,14 @@
-let initialstate=[
-        {
-        id: 1,
-        username:'Davit shanidze'
-        },
-        {
-        id: 2,
-        username:'Tst'
-        }
-    ]
-
+let initialstate=[]
 
 let usersReducer=(state=initialstate, action)=>{
-        return state       
+    switch(action.type){
+        case 'FETCH_USERS':
+            return [...state.concat(action.users)]
+               
+        default:
+            return state       
+        }
     }
-
+    
+    
 export default usersReducer;

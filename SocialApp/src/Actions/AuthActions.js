@@ -50,12 +50,13 @@ export const signUp=(credentials)=>{
             var user = firebase.auth().currentUser
             user.updateProfile({
                 displayName: credentials.username
-        })
+        }) 
         db.collection("users").doc(user.uid).set({
             id: user.uid,
             displayName: credentials.username,
         })
-        }).then(()=>{
+        firebase.updateAuth()
+        }).then((alert)=>{
         dispatch({ type: 'SIGN_UP_SUCCESS'})
         }).catch((err)=>{
             dispatch({ type: 'SIGN_UP_ERROR', error: err})

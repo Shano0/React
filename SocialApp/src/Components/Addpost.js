@@ -1,36 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {getCurrentDate} from '../getDate'
+import {getCurrentDate} from '../Helpers/getDate'
+import {getUserDisplayName} from '../Helpers/getUserDisplayName'
+import {connect} from 'react-redux';
+import {addPost} from '../Actions/PostActions';
 
-
-export default function Addpost(props) {
+function Addpost(props) {
     const dispatch=useDispatch()
-    let post={
-        authorname: '',
-        content:'',
-        date:''
-    }
+    let post={}
 
     let setPostAttributes=()=>{
-        post.date=getCurrentDate();
-        post.authorname=props.user.username;
-        // console.log(post, 'setpost')
-        
-}
-
-
-
+        post.postdate=getCurrentDate();
+        post.fulldate= new Date();
+        post.author=getUserDisplayName();
+        post.authoruserid=props.user.auth.uid;
+        post.likedUsers= [];
+        post.comments= [];
+    }
+    
     return (
         <div className="addpost">
             <div className="postheader">Status</div>
             <div className="postcontent">
                 <form>
-                    <input onChange={(event)=>post.content=event.target.value} className="textarea" type="textarea" placeholder="What's on your mind ?"/>
+                    <input onChange={(event)=>post.postcontent=event.target.value} className="textarea" type="textarea" placeholder="What's on your mind ?"/>
                     <input onClick={()=>{setPostAttributes();  
-                        post.content!==''? dispatch(props.addPost(post)):setPostAttributes()}} 
+                        if(post.content!==''){
+                            dispatch(addPost(post))
+                        }}} 
                         className="postbtn" type="reset" value="Post" />
                 </form>
             </div>
         </div>
     )
 }
+
+
+const mapStateToProps=(state)=>(
+    {
+    user: state.firebase,
+  })
+
+export default connect(mapStateToProps)(Addpost);

@@ -1,15 +1,16 @@
 import postsReducer from './postsReducer'
 import usersReducer from './usersReducer'
-import loggedUserReducer from './loggedUserReducer'
+import authReducer from './authReducer'
 import { combineReducers } from 'redux'
-import { firestoreReducer } from 'redux-firestore'
+import { firebaseReducer} from 'react-redux-firebase'
+// import { firestoreReducer } from 'redux-firestore'
 
 
 let rootReducer = combineReducers({
-    loggeduser: loggedUserReducer,
-    posts: postsReducer,
+    firebase: firebaseReducer,
+    // firestore: firestoreReducer,
     allusers: usersReducer,
-    firestoreReducer
+    posts: postsReducer,
 })
 
 export default rootReducer;

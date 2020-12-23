@@ -1,82 +1,66 @@
-
-let initialstate=[{
-    id:2,
-    authoruserid:1,
-    author:'tst1',
-    postdate: '15 Dec',
-    postcontent: 'ragaca',
-    likedUsers: [],
-    comments:[]},
-    {
-    id:1,
-    authoruserid:2, 
-    author:'tst',
-    postdate: '23 nov',
-    postcontent: 'gegeg',
-    likedUsers: [],
-    comments:[]
-    }]
-
+let initialstate=[]
 
 
 let postReducer=(state=initialstate, action)=>{
-    const loggeduser= action.loggeduser
-    console.log(action.loggedUser, 'Loggeduser from postsreducer')
+    const loggeduser= action.loggedUser
     const postIndex = state.findIndex(post => post.id === action.postid)
     let copyPost = state[postIndex]
     switch(action.type){
+        case 'FETCH_POSTS':
+            return [...state.concat(action.posts)]
+
         case 'LIKE':
-            if(!state[postIndex].likedUsers.includes(loggeduser.userid)){
-                copyPost.likedUsers.push(loggeduser.userid)
-                return({...state, 
-                    posts: 
-                    [...state.slice(0,postIndex), 
+            if(!state[postIndex].likedUsers.includes(loggeduser.uid)){
+                copyPost.likedUsers.push(loggeduser.uid)
+                return([
+                    ...state.slice(0,postIndex), 
                     {...state[postIndex], likedUsers: copyPost.likedUsers}, 
-                    ...state.slice(postIndex+1)]})
+                    ...state.slice(postIndex+1)])
             }else{
-                let clearedList = copyPost.likedUsers.filter(id=>id !== loggeduser.userid)
-     
-                return({...state, 
-                    posts: 
+                let clearedList = copyPost.likedUsers.filter(id=>id !== loggeduser.uid)
+                return(
                     [...state.slice(0,postIndex), 
                     {...state[postIndex], likedUsers: clearedList}, 
-                    ...state.slice(postIndex+1)]})
+                    ...state.slice(postIndex+1)])
             }
 
-        case 'ADD_COMMENT':
-            const commentSection = state[postIndex].comments
-            const newCommentId=commentSection.length === 0 ? 1 : commentSection[commentSection.length-1].id+1
+        case 'ADD_COMMENT':    
             copyPost.comments.push({
-                id:newCommentId,
-                authoruserid: loggeduser.userid,
-                authorname: loggeduser.username,
+                id:action.commentid,
+                authoruserid: action.authoruserid,
+                authorname: action.authorname,
                 commenttext: action.comment
             })
-            return({...state, posts:
+            return(
                 [...state.slice(0,postIndex), 
                 {...state[postIndex], comments: copyPost.comments}, 
-                ...state.slice(postIndex+1)] })
+                ...state.slice(postIndex+1)] )
         
         case 'ADD_POST':
-            const newPostId=state.length === 0 ? 1 : state[0].id+1
-            return ([{
-                id:newPostId,
-                author: loggeduser.username,
-                postdate: action.post.date,
-                postcontent: action.post.content,
+            console.log(action)
+            return (
+                [{
+                id:action.postid,
+                author: action.author,
+                authoruserid: action.authoruserid,
+                postdate: action.postdate,
+                postcontent: action.postcontent,
                 likedUsers: [],
                 comments: []
                 }, ...state])
         
         case 'DELETE_POST':
-            return({...state, posts: 
+            return(
                 [...state.slice(0, postIndex),
                 ...state.slice(postIndex+1)]
-                });
+                );
                 
         default:
             return state       
     }
 }
 
+
 export default postReducer;
+
+

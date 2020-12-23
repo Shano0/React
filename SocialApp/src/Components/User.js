@@ -12,7 +12,7 @@ export default function User(props) {
                 </Link>
                     <div className="authornamedate">
                         <Link to={`/profile/${props.user.id}`}>
-                            <p>{props.user.username}</p>
+                            <p>{props.user.displayName}</p>
                         </Link>
                     </div>
             </div>

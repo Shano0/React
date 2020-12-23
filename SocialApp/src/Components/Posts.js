@@ -1,25 +1,44 @@
 import React from 'react';
-import {likePost, addComment, delPost} from '../Actions/PostActions';
 import Status from './Status';
+import {connect} from 'react-redux'
+// import {connect} from 'react-redux';
+// import {firestoreConnect } from 'react-redux-firebase'
 
 function Posts(props) {
-    let posts = props.profileuserid === null ? props.posts: props.posts.filter((e)=>e.authoruserid===parseInt(props.profileuserid))
-    console.log(props.posts, 'props')
-    console.log(posts, 'posts var')
+    let filteredPosts
+    let filterPosts=()=>{
+        if(typeof(props.profileuserid) !== 'undefined'){
+            filteredPosts=props.posts.filter((e)=>e.authoruserid===props.profileuserid)
+        }else if (typeof(props.searchKeyword) !== 'undefined') {
+            console.log(props.posts)
+            filteredPosts= props.posts.filter((e)=>e.author.toUpperCase().includes(props.searchKeyword.toUpperCase())||
+            e.postcontent.toUpperCase().includes(props.searchKeyword.toUpperCase()))
+        }else{
+            filteredPosts=props.posts
+        } 
+    }
+
+    filterPosts()
     return (
         <div>
-        {posts.map((e)=>
-        <Status 
-        key={e.id} 
-        post={e} 
-        likePost={likePost} 
-        delPost={delPost}
-        addComment={addComment}
-        user={props.user}
-         />)}
+            {filteredPosts.map((e)=>
+            <Status  key={e.id} post={e} />)}
         </div>
-
     )
 }
 
-export default Posts;
+const mapStateToProps=(state)=>({
+    posts: state.posts
+})
+
+export default connect(mapStateToProps)(Posts)
+
+// export default compose(
+//     connect(mapStateToProps),
+//     firestoreConnect([
+//         {collection: 'posts'}
+//     ])
+// )(Posts)                           ბევრი ვეჩალიჩე, მაგრამ ვერ ავამუშავე firestore.data და firestore.ordered ცარიელი მოდის
+
+
+
