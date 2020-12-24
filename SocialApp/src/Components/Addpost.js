@@ -7,7 +7,7 @@ import {addPost} from '../Actions/PostActions';
 
 function Addpost(props) {
     const dispatch=useDispatch()
-    let post={content:''}
+    let post={postcontent:''}
 
     let setPostAttributes=()=>{
         post.postdate=getCurrentDate();
@@ -25,7 +25,7 @@ function Addpost(props) {
                 <form>
                     <input onChange={(event)=>post.postcontent=event.target.value} className="textarea" type="textarea" placeholder="What's on your mind ?"/>
                     <input onClick={()=>{setPostAttributes();  
-                        if(post.content!==''){
+                        if(post.postcontent!==''){
                             dispatch(addPost(post))
                         }}} 
                         className="postbtn" type="reset" value="Post" />
