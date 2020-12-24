@@ -7,7 +7,7 @@ import {addPost} from '../Actions/PostActions';
 
 function Addpost(props) {
     const dispatch=useDispatch()
-    let post={}
+    let post={content:''}
 
     let setPostAttributes=()=>{
         post.postdate=getCurrentDate();
