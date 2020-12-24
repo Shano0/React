@@ -7,7 +7,6 @@ import {ReactReduxFirebaseProvider} from 'react-redux-firebase'
 import store, {rrfProps} from './Store'
 import {fetchPosts} from './Actions/PostActions'
 import {fetchUsers} from './Actions/AuthActions'
-import firebase from './config/fbConfig'
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';

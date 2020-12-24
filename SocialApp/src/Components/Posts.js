@@ -10,7 +10,6 @@ function Posts(props) {
         if(typeof(props.profileuserid) !== 'undefined'){
             filteredPosts=props.posts.filter((e)=>e.authoruserid===props.profileuserid)
         }else if (typeof(props.searchKeyword) !== 'undefined') {
-            console.log(props.posts)
             filteredPosts= props.posts.filter((e)=>e.author.toUpperCase().includes(props.searchKeyword.toUpperCase())||
             e.postcontent.toUpperCase().includes(props.searchKeyword.toUpperCase()))
         }else{
@@ -19,6 +18,7 @@ function Posts(props) {
     }
 
     filterPosts()
+
     return (
         <div>
             {filteredPosts.map((e)=>

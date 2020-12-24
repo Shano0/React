@@ -43,7 +43,6 @@ export const likePost=(id, liked, loggedUser)=>{
 
 export const addComment=(comment)=>{
     const currentPostIndex = store.getState().posts.findIndex(post => post.id === comment.postId)
-    console.log(store.getState().posts[currentPostIndex])
     const commentSection = store.getState().posts[currentPostIndex].comments
     
     const newCommentId=commentSection.length === 0 ? 1 : commentSection[commentSection.length-1].id+1

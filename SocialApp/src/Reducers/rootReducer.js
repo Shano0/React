@@ -8,6 +8,7 @@ import { firebaseReducer} from 'react-redux-firebase'
 
 let rootReducer = combineReducers({
     firebase: firebaseReducer,
+    auth: authReducer,
     // firestore: firestoreReducer,
     allusers: usersReducer,
     posts: postsReducer,

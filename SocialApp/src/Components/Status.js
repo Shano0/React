@@ -21,10 +21,6 @@ function Status(props) {
         comment.commenttext=postState.commenttext
     }
 
-    // console.log(props.user.uid, 'user')
-    // console.log(props.post.authoruserid,'author')
-
-    console.log(props.user)
 
     const dispatch=useDispatch()
     

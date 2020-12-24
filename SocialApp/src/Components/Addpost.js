@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch} from 'react-redux';
 import {getCurrentDate} from '../Helpers/getDate'
 import {getUserDisplayName} from '../Helpers/getUserDisplayName'
@@ -38,7 +38,7 @@ function Addpost(props) {
 
 const mapStateToProps=(state)=>(
     {
-    user: state.firebase,
+    user: state.firebase
   })
 
 export default connect(mapStateToProps)(Addpost);
