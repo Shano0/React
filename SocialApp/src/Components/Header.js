@@ -29,17 +29,20 @@ function Header(props) {
                 </Link>
             </div>
             <ul>
+                <Link to="/Requests">
+                    <li className='navLinks' id='friendRequests' style={{display: props.friendRequests.length>0 ? '':'none'}}>Friend Requests ({props.friendRequests.length})</li>
+                </Link>
                 <Link to='/'>
-                    <li>Home</li>
+                    <li className='navLinks'>Home</li>
                 </Link>
                 <Link to='/People'>
-                    <li>People</li>
+                    <li className='navLinks'>People</li>
                 </Link>
                 <Link to={`/profile/${props.auth.uid}`}>
-                    <li>Profile</li>
+                    <li className='navLinks'>Profile</li>
                 </Link>
-                    <li onClick={props.signOut}>
-                        <a name='asd' href='#asd'>Log Out</a>
+                    <li  onClick={props.signOut} >
+                        <a className='navLinks' name='asd' href='#asd'>Log Out</a>
                     </li>       
             </ul>
         </nav>
@@ -50,7 +53,8 @@ function Header(props) {
 }
 
 const mapStateToProps=(state)=>({
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    friendRequests: state.friendRequests
   })
 
 const mapDispatchToProps=(dispatch)=>({

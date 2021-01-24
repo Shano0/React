@@ -19,7 +19,7 @@ let authReducer=(state=initialstate, action)=>{
             return state
 
         case 'SIGN_UP_ERROR':
-            alert('Registration Error' ,action.error)
+            console.log('eroria dznmi')
             return state
         
         case 'SIGN_UP_SUCCESS':

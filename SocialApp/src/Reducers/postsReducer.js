@@ -37,7 +37,6 @@ let postReducer=(state=initialstate, action)=>{
                 ...state.slice(postIndex+1)] )
         
         case 'ADD_POST':
-            console.log(action)
             return (
                 [{
                 id:action.postid,

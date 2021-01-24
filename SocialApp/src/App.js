@@ -23,7 +23,8 @@ function App(props) {
           <Route path='/Search/:keyword' render={(props)=><Searchresults {...props}/>}/>
           <Route path='/Profile/:id' render={(props)=><Profile {...props}/>}/>
           <Route exact path='/' render={()=><div><Addpost/>, <Posts/></div>}/>
-          <Route path='/People' render={()=><People userNameFilter={null} />}/>
+          <Route path='/Requests' render={()=><People userNameFilter={null} userIdFilter={null}/>}/>
+          <Route path='/People' render={()=><People userNameFilter={null} userIdFilter={null}/>}/>
         </Switch>
       </div>
     </Router>

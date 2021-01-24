@@ -48,17 +48,22 @@ export const signUp=(credentials)=>{
             credentials.password,
         ).then(()=>{
             var user = firebase.auth().currentUser
-            user.updateProfile({
-                displayName: credentials.username
+            firebase.auth().onAuthStateChanged(u =>{
+                user.updateProfile({
+                    displayName: credentials.username
+            })         
         }) 
         db.collection("users").doc(user.uid).set({
             id: user.uid,
             displayName: credentials.username,
+            friendlist:[],
+            friendrequests:[]
         })
         firebase.updateAuth()
         }).then((alert)=>{
         dispatch({ type: 'SIGN_UP_SUCCESS'})
         }).catch((err)=>{
+            console.log(err)
             dispatch({ type: 'SIGN_UP_ERROR', error: err})
     })
 }}

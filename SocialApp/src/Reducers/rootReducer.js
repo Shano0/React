@@ -1,6 +1,7 @@
 import postsReducer from './postsReducer'
 import usersReducer from './usersReducer'
-import authReducer from './authReducer'
+import friendsReducer from './friendReducer'
+// import authReducer from './authReducer'
 import { combineReducers } from 'redux'
 import { firebaseReducer} from 'react-redux-firebase'
 // import { firestoreReducer } from 'redux-firestore'
@@ -8,6 +9,7 @@ import { firebaseReducer} from 'react-redux-firebase'
 
 let rootReducer = combineReducers({
     firebase: firebaseReducer,
+    friendRequests: friendsReducer,
     // auth: authReducer,
     // firestore: firestoreReducer,
     allusers: usersReducer,
