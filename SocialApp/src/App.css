@@ -34,6 +34,7 @@ nav{
 
 #friendRequests{
 	color: royalblue;
+	width: 195px;
 }
 
 .search{
@@ -332,6 +333,27 @@ hr{
 
 .people{
 	margin-top: 95px;
+}
+
+.addFriendButtonContainerUser{
+	margin-top: -5px;
+}
+
+.addFriendButtonUser{
+	background-color: #3d7bb7;
+	padding: 10.5px 25px;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	width: 190px;
+}
+
+.pplName{
+	margin-top: 6px;
+}
+
+.pplImg{
+	margin-top: -6px;
 }
 
 /* LOGIN */

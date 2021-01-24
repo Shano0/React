@@ -11,10 +11,16 @@ function Header(props) {
         keyword:'',
     })
 
+    const [requestState, setRequestState] = useState(' ')
+
     const handleChange=(e)=>{
         setSearchState({
             keyword:e.target.value
         })
+    }
+
+    if (props.friendRequests.length>0 && requestState===' ') {
+        setRequestState("Friend Requests"+("("+props.friendRequests.length+")"))
     }
 
     if(props.auth.isLoaded && !props.auth.uid) return <Redirect to='/Login'/>
@@ -30,7 +36,7 @@ function Header(props) {
             </div>
             <ul>
                 <Link to="/Requests">
-                    <li className='navLinks' id='friendRequests' style={{display: props.friendRequests.length>0 ? '':'none'}}>Friend Requests ({props.friendRequests.length})</li>
+                    <li className='navLinks' id='friendRequests'>{requestState}</li>
                 </Link>
                 <Link to='/'>
                     <li className='navLinks'>Home</li>
