@@ -12,19 +12,25 @@ export const fetchCurrentUsersFriendRequests=(userid)=>{
                   db.collection('users').doc(userid).get().then((snapshot)=>{
                     let frequests
                     if(typeof snapshot.data() === 'undefined'){
-                        console.log('erooor')
                         getRequests()
                     }else{
                         frequests=snapshot.data().friendrequests
                     }
                     dispatch({
                         type: 'FETCH_FRIEND_REQUESTS',
-                        frequests})
+                        frequests});
+                    frequests.forEach(element => {
+                        dispatch({
+                            type: 'UPDATE_FRIEND_STATUS',
+                            userid:element,
+                            friendStatus: "Confirm Friend Request"
+                        }) 
+                    });
                 })
-              });
+            });
+        }
+        getRequests()
     }
-    getRequests()
-}
 }
 
 export const addFriend=(currentUserId, addedUserId, friendState)=>{
@@ -37,13 +43,21 @@ export const addFriend=(currentUserId, addedUserId, friendState)=>{
                 db.collection("users").doc(addedUserId).update( 
                     {friendrequests: 
                         [...friendrequests,currentUserId]
-                })
-            } else if (friendState==='Friend Request Sent'){
+                }).then(dispatch({
+                    type: 'UPDATE_FRIEND_STATUS',
+                    userid: addedUserId,
+                    friendStatus:'Friend Request Sent'
+                }))
+            }else if (friendState==='Friend Request Sent'){
                 db.collection("users").doc(addedUserId).update( 
                     {friendrequests: 
                         [...friendrequests]
                         .filter((e)=>e!==currentUserId)
-                    })
+                    }).then(dispatch({
+                        type: 'UPDATE_FRIEND_STATUS',
+                        userid: addedUserId,
+                        friendStatus:'Add Friend'
+                    }))
             } else{
                 db.collection("users").doc(addedUserId).update( 
                     {friendlist: 
@@ -57,7 +71,11 @@ export const addFriend=(currentUserId, addedUserId, friendState)=>{
                         {friendlist: 
                             [...currentUserfriendList]
                             .filter((e)=>e!==addedUserId)
-                        })
+                        }).then(dispatch({
+                            type: 'UPDATE_FRIEND_STATUS',
+                            userid: addedUserId,
+                            friendStatus:'Add Friend'
+                        }))
                 })
             }
         }
@@ -81,9 +99,19 @@ export const confirmFriendRequest=(currentUserId, addedUserId)=>{
                                 [...friendrequests]
                                 .filter((e)=>e!==addedUserId),
                                 friendlist:[...currentUserfriendList,addedUserId]}
+                    ).then(
+                        dispatch({
+                            type: 'CONFIRM_FRIEND_REQUEST',
+                            addedUserId}),
+                        dispatch({
+                            type: 'UPDATE_FRIEND_STATUS',
+                            userid: addedUserId,
+                            friendStatus:'Remove Friend'
+                        })
                     )
                 })
             )     
         }
-    )}
+    )
+}
 }

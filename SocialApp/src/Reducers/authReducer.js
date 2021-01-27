@@ -3,7 +3,7 @@ let initialstate={}
 let authReducer=(state=initialstate, action)=>{
     switch(action.type){
         case 'LOGIN_ERROR':
-            alert('Login Error' ,action.error)
+            alert('Login Error')
             return state
 
         case 'LOGIN_SUCCESS':
@@ -16,10 +16,12 @@ let authReducer=(state=initialstate, action)=>{
     
         case 'LOGOUT_SUCCESS':
             console.log('Logged Out')
+            state=undefined
+            console.log(state)
             return state
 
         case 'SIGN_UP_ERROR':
-            console.log('eroria dznmi')
+            alert('Sign Up Error')
             return state
         
         case 'SIGN_UP_SUCCESS':
@@ -27,6 +29,7 @@ let authReducer=(state=initialstate, action)=>{
             return state
                 
         default:
+            console.log(state)
             return state       
     }
 }

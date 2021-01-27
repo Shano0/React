@@ -414,13 +414,130 @@ hr{
 	margin: 10px 0px;
 }
 
+/* CHAT */
 
+.chatApp hr{
+	margin: 0;
+	padding: 0px;
+	margin: 0px;  
+	opacity: 0.4;
+}
 
+.sidenav {
+	height: 100%;
+	width: 380px;
+	position: fixed;
+	top: 30px;
+	left: 0;
+	background-color: white;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+  }
+  
+  .sidenav p {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 23px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+  }
+  
+  .sidenav p:hover {
+	color: #f1f1f1;
+  }
 
+.chatImg{
+	display: inline-block;
+	width: 14%;
+	border-radius: 50%;
+	margin-left: 10px;
+	vertical-align:middle
+}
 
+.chatName{
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
 
+.chatPerson:hover{
+	background-color: #68aaec;
+	cursor: pointer;
+}
 
+.messageBox{
+	margin-left: 380px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	border: none;
+}
 
+.messageBox input{
+	width: 70%;
+	background-color:  #f1f1f1;
+	border: none;
+	height: 55px;
+	padding: 10px;
+	display: inline-block;
+}
 
+.sendMessage{
+	text-align: center;
+	display: inline-block;
+	width: 14%;
+	background-color: #3d7bb7;
+	height: 55px;
+	border: none;
+	box-shadow: none;
+	padding-right: 27px;
+	font-size: 20px;
+	margin-bottom:0px;
+	color: white;
+	overflow: hidden;
+	vertical-align: bottom;
+	cursor: pointer;
+}
 
+.messagesContainer{
+	margin-top: 80px;
+	margin-left: 395px;
+}
 
+.message{
+	margin-top: 30px;
+	color: black;
+	border-radius: 3px;
+	padding: 10px;
+	width: auto;
+	max-width: 300px;
+}
+
+.friendsMessage{
+	background-color: #dbd9d9;
+	/* float: right;
+	margin-right: 30px; */
+
+}
+
+.myMessage{
+	background-color:#3d7bb7 ;
+	color: white;
+}
+
+.noChat{
+	text-align: center;
+	margin-top: 160px;
+	font-size: 40px;
+	color: #3d7bb7;
+}
+
+.selectedPerson{
+	background-color:#68aaec;
+	color: #f1f1f1;
+}
+
+.selectedPerson span{
+	color: #f1f1f1;
+}

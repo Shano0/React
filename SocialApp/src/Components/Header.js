@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {signOut} from '../Actions/AuthActions'
+import store from '../Store'
 import {Redirect} from 'react-router-dom'
 
-
 function Header(props) {
-
     const [searchState,setSearchState]= useState({
         keyword:'',
     })
 
-    const [requestState, setRequestState] = useState(' ')
+    const [requestState, setRequestState] = useState('')
 
     const handleChange=(e)=>{
         setSearchState({
@@ -19,9 +18,17 @@ function Header(props) {
         })
     }
 
-    if (props.friendRequests.length>0 && requestState===' ') {
-        setRequestState("Friend Requests"+("("+props.friendRequests.length+")"))
+    if (props.friendRequests.length>0 && requestState==='') {
+        setRequestState(`Friend Requests(${props.friendRequests.length})`)
     }
+    
+    store.subscribe(function(){
+        if (store.getState().friendRequests.length>0) {
+            setRequestState(`Friend Requests(${store.getState().friendRequests.length})`)
+        } else{
+            setRequestState('')
+        }
+    })
 
     if(props.auth.isLoaded && !props.auth.uid) return <Redirect to='/Login'/>
     if(window.location.pathname !== '/Login' && window.location.pathname !== '/Register'){
@@ -36,7 +43,7 @@ function Header(props) {
             </div>
             <ul>
                 <Link to="/Requests">
-                    <li className='navLinks' id='friendRequests'>{requestState}</li>
+                    <li className='navLinks' id='friendRequests'>{requestState ===''? '':requestState}</li>
                 </Link>
                 <Link to='/'>
                     <li className='navLinks'>Home</li>
@@ -47,9 +54,12 @@ function Header(props) {
                 <Link to={`/profile/${props.auth.uid}`}>
                     <li className='navLinks'>Profile</li>
                 </Link>
-                    <li  onClick={props.signOut} >
-                        <a className='navLinks' name='asd' href='#asd'>Log Out</a>
-                    </li>       
+                <Link to='/'>
+                    <li onClick={props.signOut} >
+                        <p className='navLinks'>Log Out</p>
+                    </li>
+                </Link>      
+ 
             </ul>
         </nav>
     )
