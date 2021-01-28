@@ -51,6 +51,9 @@ function Header(props) {
                 <Link to='/People'>
                     <li className='navLinks'>People</li>
                 </Link>
+                <Link to='/Chat'>
+                    <li className='navLinks'>Chat</li>
+                </Link>
                 <Link to={`/profile/${props.auth.uid}`}>
                     <li className='navLinks'>Profile</li>
                 </Link>

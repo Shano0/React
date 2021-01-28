@@ -18,6 +18,7 @@ function App(props) {
   return ( 
     <Router>
       <div className="App">
+        {/* <p>{process.env.REACT_APP_BASE_URL}</p> */}
         <Header />
         <Switch>
           <Route exact path='/Login' render={()=><Login/>}/>

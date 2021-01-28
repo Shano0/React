@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import userPic from '../img/user.jpg';
@@ -93,8 +93,8 @@ function Chat(props) {
                 <div className='messagesContainer'>
                 <ul>
                     {props.chat.map((e)=>
-                        <li key={e.messageid} className={e.id===props.auth.uid?'myMessage message':'friendsMessage message'} >
-                            {e.message}
+                        <li key={e.messageid} className={e.id===props.auth.uid?'myMessageContainer':'friendsMessageContainer'}>
+                            <div className={e.id===props.auth.uid?'myMessage message':'friendsMessage message'}>{e.message}</div>
                         </li>
                     )}
                 </ul>

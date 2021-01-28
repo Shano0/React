@@ -4,7 +4,7 @@ import userPic from '../img/user.jpg';
 import Posts from './Posts';
 import {addFriend, confirmFriendRequest} from '../Actions/FriendActions'
 import {connect, useDispatch} from 'react-redux';
-import {getUserDisplayName} from '../Helpers/getUserDisplayName'
+import {Link} from 'react-router-dom';
 
 function Profile(props) {
     const dispatch=useDispatch()
@@ -47,11 +47,20 @@ function Profile(props) {
             <div className="userInfo">
                 <p>{props.user.uid===props.match.params.id? profileuser.displayName:profileuser.displayName}</p>
             </div>
-            <div style={{display: props.match.params.id !==props.user.uid ? '':'none'}} className='addFriendButtonContainer'>
+            {props.match.params.id !==props.user.uid ? 
+            <div className='addFriendButtonContainer'>
                 <button onClick={()=>addFriendClick()} className='addFriendButton'>
                     {friendStatus}
                 </button>
-            </div>
+            </div>:
+            <div className='addFriendButtonContainer'>
+            <Link to="/Friends">
+                <button className='addFriendButton'>
+                    Friend List
+                </button>
+            </Link>
+            </div>} 
+            
             <div className="userPosts">
             <Posts posts={props.posts} user={props.user} profileuserid={props.match.params.id}/>
             </div>
@@ -60,8 +69,7 @@ function Profile(props) {
     )
 }
 
-const mapStateToProps=(state)=>(
-    console.log(state),{
+const mapStateToProps=(state)=>({
     posts: state.posts,
     allusers: state.allusers,
     user: state.firebase.auth,
